@@ -17,9 +17,11 @@ public class ProductController {
     private ProductRepository productRepository;
 
     @GetMapping()
-    public List<Product> get() {
-        return productRepository.findAll();
-    }
+    public ResponseEntity<List<Product>> get() {
+        List<Product> list = productRepository.findAll();
+        if(list == null || list.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(list);    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> get(@PathVariable long id) {

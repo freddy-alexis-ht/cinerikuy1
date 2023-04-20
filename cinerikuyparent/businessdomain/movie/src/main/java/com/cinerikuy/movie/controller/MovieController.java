@@ -17,8 +17,11 @@ public class MovieController {
     private MovieRepository movieRepository;
 
     @GetMapping()
-    public List<Movie> get() {
-        return movieRepository.findAll();
+    public ResponseEntity<List<Movie>> get() {
+        List<Movie> list = movieRepository.findAll();
+        if(list == null || list.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(list);
     }
 
     @GetMapping("/{id}")

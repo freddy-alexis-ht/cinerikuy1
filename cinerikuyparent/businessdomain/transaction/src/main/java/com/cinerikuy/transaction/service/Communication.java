@@ -1,14 +1,12 @@
 package com.cinerikuy.transaction.service;
 
 import com.cinerikuy.transaction.entity.Transaction;
-import com.cinerikuy.transaction.entity.TransactionProduct;
+import com.cinerikuy.transaction.entity.ProductPojo;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
-import com.cinerikuy.transaction.repository.TransactionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -21,10 +19,8 @@ import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -48,9 +44,9 @@ public class Communication {
     // Validates products before save, products must exist in product-DB
     public void validateProductExistence(Transaction transaction) throws BusinessRuleException, UnknownHostException {
         if (transaction.getProducts() != null) {
-            for (Iterator<TransactionProduct> it = transaction.getProducts().iterator(); it.hasNext();) {
-                TransactionProduct dto = it.next();
-                String productName = this.getProductName(dto.getProductId());
+            for (Iterator<ProductPojo> it = transaction.getProducts().iterator(); it.hasNext();) {
+                ProductPojo product = it.next();
+                String productName = this.getProductName(product.getId());
                 if (productName.trim().length() == 0) {
                     BusinessRuleException exception = new BusinessRuleException("1025", "Error de validación, producto no existe", HttpStatus.PRECONDITION_FAILED);
                     throw exception;
@@ -61,7 +57,7 @@ public class Communication {
 
     // Validates movie before save, the movie must exist in movie-DB
     public void validateMovieExistence(Transaction transaction) throws BusinessRuleException, UnknownHostException {
-        String movieName = this.getMovieName(transaction.getMovieId());
+        String movieName = this.getMovieName(transaction.getMovie().getId());
         if (movieName.trim().length() == 0) {
             BusinessRuleException exception = new BusinessRuleException("1026", "Error de validación, película no existe", HttpStatus.PRECONDITION_FAILED);
             throw exception;

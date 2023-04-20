@@ -42,9 +42,7 @@ public class TransactionController {
     public ResponseEntity<?> put(@PathVariable long id, @RequestBody Transaction input) {
         Transaction exist = transactionRepository.findById(id).get();
         if(exist != null){
-            exist.setCode(input.getCode());
-            exist.setDni(input.getDni());
-            exist.setMovieName(input.getMovieName());
+            exist.getMovie().setId(input.getMovie().getId());
         }
         Transaction obj = transactionRepository.save(exist);
         return ResponseEntity.ok(obj);

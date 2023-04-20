@@ -37,18 +37,18 @@ public class Communication {
                 connection.addHandlerLast(new ReadTimeoutHandler(5000, TimeUnit.MILLISECONDS));
                 connection.addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS));
             });
-    private <T> List<T> getTransactions(String iban) {
+    private <T> List<T> getTransactions(String dni) {
         List<T> transactions = new ArrayList<>();
         try {
             WebClient build = webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
-                    .baseUrl("http://localhost:9089/movies")
+                    .baseUrl("http://localhost:9093/transactions")
                     .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                    .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9089/movies"))
+                    .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9093/transactions"))
                     .build();
 
             List<Object> t = build.method(HttpMethod.GET).uri(uriBuilder -> uriBuilder
-                            .path("/customer/movies")
-                            .queryParam("ibanAccount", iban)
+                            .path("/customer/transactions")
+                            .queryParam("dni", dni)
                             .build())
                     .retrieve().bodyToFlux(Object.class).collectList().block();
 

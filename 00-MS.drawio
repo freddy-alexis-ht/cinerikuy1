@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-04-19T23:15:56.016Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="xl9prExN6UE5HqBn4ROL" version="21.1.8" type="device">
+<mxfile host="app.diagrams.net" modified="2023-04-20T04:37:29.247Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="qIG9yypdlEQfnNyf1aT-" version="21.1.8" type="device">
   <diagram name="Página-1" id="-cIdjegcSLyxtcj_iW46">
-    <mxGraphModel dx="2050" dy="2121" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1827" dy="1865" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -653,11 +653,11 @@
         <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-351" value="product" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.folder;fillColor=#7FBA42;" vertex="1" parent="1">
           <mxGeometry x="910" y="1553" width="50" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-289" value="&lt;b&gt;&lt;u&gt;cinerikuyparent&lt;br&gt;&lt;/u&gt;&lt;/b&gt;groupId: com.cinerikuy&lt;br&gt;artifactId: cinerikuyparent&lt;br&gt;packaging: pom&lt;br&gt;properties:&lt;br&gt;- maven.compiler.source/target: 8&lt;br&gt;- spring-boot.version: 2.7.5&lt;br&gt;- project.build.sourceEncoding: UTF-8&lt;br&gt;- postgres.version: 42.5.0&lt;br&gt;dependencyManagement&lt;br&gt;- artifactId: spring-boot-dependencies (2.7.5)&lt;br&gt;dependencies:&lt;br&gt;- artifactId: spring-boot-starter&lt;br&gt;- artifactId: spring-boot-starter-test&lt;br&gt;plugins&lt;br&gt;-artifactId: maven-surefire-plugin" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
-          <mxGeometry x="850" y="643" width="323" height="240" as="geometry" />
+        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-289" value="&lt;b&gt;&lt;u&gt;cinerikuyparent&lt;br&gt;&lt;/u&gt;&lt;/b&gt;groupId: com.cinerikuy&lt;br&gt;artifactId: cinerikuyparent&lt;br&gt;packaging: pom&lt;br&gt;properties:&lt;br&gt;- maven.compiler.source/target: 8&lt;br&gt;- spring-boot.version: 2.7.5&lt;br&gt;- project.build.sourceEncoding: UTF-8&lt;br&gt;- postgres.version: 42.5.0&lt;br&gt;dependencyManagement&lt;br&gt;- artifactId: spring-boot-dependencies (2.7.5)&lt;br&gt;dependencies:&lt;br&gt;- artifactId: spring-boot-starter&lt;br&gt;- artifactId: spring-boot-starter-test&lt;br&gt;- artifactId:&amp;nbsp;spring-boot-devtools&lt;br&gt;plugins&lt;br&gt;-artifactId: maven-surefire-plugin" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="850" y="630" width="323" height="253" as="geometry" />
         </mxCell>
         <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-293" value="cinerikuyparent" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;outlineConnect=0;align=center;shape=mxgraph.office.concepts.folder;" vertex="1" parent="1">
-          <mxGeometry x="1101" y="655" width="50" height="45" as="geometry" />
+          <mxGeometry x="1101" y="640" width="50" height="45" as="geometry" />
         </mxCell>
         <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-364" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" source="KEB4Dp1MF8ZIiS9gSXZJ-365" target="KEB4Dp1MF8ZIiS9gSXZJ-368" parent="1">
           <mxGeometry relative="1" as="geometry" />
@@ -671,13 +671,13 @@
         <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-476" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="KEB4Dp1MF8ZIiS9gSXZJ-368" target="KEB4Dp1MF8ZIiS9gSXZJ-369">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-368" value="&lt;b&gt;&lt;u&gt;Transaction&lt;/u&gt;&lt;/b&gt;&lt;br&gt;id: long&lt;br&gt;code: String&lt;br&gt;dni: String&lt;br&gt;cinemaCode: String (excluded)&lt;br&gt;cinemaName: String (excluded)&lt;br&gt;movieId: long&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;movieCode: String&lt;br&gt;movieName: String&lt;br&gt;products: List&amp;lt;TransacP&amp;gt; (*)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-368" value="&lt;b&gt;&lt;u&gt;Transaction&lt;/u&gt;&lt;/b&gt;&lt;br&gt;id: long&lt;br&gt;code: String&lt;br&gt;dni: String&lt;br&gt;cinemaCode: String (excluded)&lt;br&gt;cinemaName: String (excluded)&lt;br&gt;movieId: long&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;movieCode: String&lt;br&gt;movieName: String&lt;br&gt;products: List&amp;lt;ProductPojo&amp;gt; (*)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="1750" y="-230" width="180" height="160" as="geometry" />
         </mxCell>
-        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-369" value="&lt;b&gt;&lt;u&gt;Movie&lt;br&gt;&lt;/u&gt;&lt;/b&gt;id: long&lt;br&gt;code: String&lt;br&gt;name: String&lt;br&gt;transactionCode: String" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-369" value="&lt;b&gt;&lt;u&gt;Movie&lt;br&gt;&lt;/u&gt;&lt;/b&gt;id: long&lt;br&gt;code: String&lt;br&gt;name: String" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="2180" y="-310" width="160" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-370" value="&lt;b&gt;&lt;u&gt;Product&lt;br&gt;&lt;/u&gt;&lt;/b&gt;id: long&lt;br&gt;code: String&lt;br&gt;name: String&lt;br&gt;transactionCode: String" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+        <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-370" value="&lt;b&gt;&lt;u&gt;Product&lt;br&gt;&lt;/u&gt;&lt;/b&gt;id: long&lt;br&gt;code: String&lt;br&gt;name: String" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
           <mxGeometry x="2180" y="-180" width="160" height="90" as="geometry" />
         </mxCell>
         <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-371" value="1:N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" source="KEB4Dp1MF8ZIiS9gSXZJ-373" target="KEB4Dp1MF8ZIiS9gSXZJ-382" parent="1">
@@ -723,7 +723,7 @@
           <mxGeometry x="-190" y="579.66" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="KEB4Dp1MF8ZIiS9gSXZJ-474" value="&lt;b&gt;&lt;u&gt;Puertos previos al uso del API Gateway&lt;br&gt;&lt;/u&gt;&lt;/b&gt;&lt;br&gt;API Gateway&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;8080&lt;br&gt;MS-Billing&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9087&lt;br&gt;MS-Cinema&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9088&lt;br&gt;MS-Movie&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9089&lt;br&gt;Eureka-server&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9090&lt;br&gt;MS-customer&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9091&lt;br&gt;MS-product&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9092&lt;br&gt;MS-transaction&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9093&lt;br&gt;Admin-server&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9094&lt;br&gt;Config-server&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9095&lt;br&gt;PgAdmin&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9096&lt;br&gt;Keycloak-server&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9097&lt;br&gt;Keycloak-client&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;9098&lt;br&gt;Postgres-DB&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;3432" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
-          <mxGeometry x="-643" width="230" height="250" as="geometry" />
+          <mxGeometry x="-770" y="370" width="230" height="250" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
