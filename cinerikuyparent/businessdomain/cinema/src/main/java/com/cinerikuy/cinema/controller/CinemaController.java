@@ -37,11 +37,12 @@ public class CinemaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> put(@PathVariable long id, @RequestBody Cinema input) {
-        Cinema exist = cinemaRepository.findById(id).get();
-        if(exist != null){
-            exist.setCode(input.getCode());
-            exist.setName(input.getName());
-        }
+        Optional<Cinema> findById = cinemaRepository.findById(id);
+        if(!findById.isPresent())
+            return ResponseEntity.notFound().build();
+        Cinema exist = findById.get();
+        exist.setCode(input.getCode());
+        exist.setName(input.getName());
         Cinema obj = cinemaRepository.save(exist);
         return ResponseEntity.ok(obj);
     }
@@ -55,8 +56,9 @@ public class CinemaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         Optional<Cinema> findById = cinemaRepository.findById(id);
-        if(findById.get() != null)
-            cinemaRepository.delete(findById.get());
+        if(!findById.isPresent())
+            return ResponseEntity.notFound().build();
+        cinemaRepository.delete(findById.get());
         return ResponseEntity.ok().build();
     }
 

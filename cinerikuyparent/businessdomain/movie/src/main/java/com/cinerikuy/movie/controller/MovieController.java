@@ -39,11 +39,12 @@ public class MovieController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> put(@PathVariable long id, @RequestBody Movie input) {
-        Movie exist = movieRepository.findById(id).get();
-        if(exist != null){
-            exist.setCode(input.getCode());
-            exist.setName(input.getName());
-        }
+        Optional<Movie> findById = movieRepository.findById(id);
+        if(!findById.isPresent())
+            return ResponseEntity.notFound().build();
+        Movie exist = findById.get();
+        exist.setCode(input.getCode());
+        exist.setName(input.getName());
         Movie obj = movieRepository.save(exist);
         return ResponseEntity.ok(obj);
     }
@@ -58,12 +59,13 @@ public class MovieController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         Optional<Movie> findById = movieRepository.findById(id);
-        if(findById.get() != null)
-            movieRepository.delete(findById.get());
+        if(!findById.isPresent())
+            return ResponseEntity.notFound().build();
+        movieRepository.delete(findById.get());
         return ResponseEntity.ok().build();
     }
 
-    // OTHER METHODS
+    /** OTHER METHODS */
 
     @GetMapping("/code/{cinemaCode}")
     public ResponseEntity<List<Movie>> getMoviesByCinemaCode(@PathVariable String cinemaCode) {
@@ -71,7 +73,7 @@ public class MovieController {
                 .stream().filter(m -> m.getCinemaCodes().contains(cinemaCode))
                 .collect(Collectors.toList());
         if(list == null || list.isEmpty())
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         return ResponseEntity.ok(list);
     }
 }
