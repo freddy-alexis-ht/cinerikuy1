@@ -7,6 +7,8 @@ import com.cinerikuy.transaction.entity.Transaction;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
 import com.cinerikuy.transaction.repository.TransactionRepository;
 import com.cinerikuy.transaction.service.TransactionComm;
+import com.cinerikuy.transaction.util.TransactionRequestMapper;
+import com.cinerikuy.transaction.util.TransactionResponseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,10 @@ public class TransactionController {
     private TransactionRepository transactionRepository;
     @Autowired
     private TransactionComm transactionComm;
+    @Autowired
+    private TransactionRequestMapper reqMapper;
+    @Autowired
+    private TransactionResponseMapper resMapper;
 
     @GetMapping()
     public ResponseEntity<List<Transaction>> get() {
@@ -51,13 +57,29 @@ public class TransactionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> post(@RequestBody TransactionRequest input) throws BusinessRuleException, UnknownHostException {
+    public ResponseEntity<?> post(@RequestBody TransactionRequest request) throws BusinessRuleException, UnknownHostException {
         /** VALIDACIONES */
+        // transactionComm.validateCustomerExistence(input);
+        CinemaData cinema = transactionComm.validateCinemaExistence(request);
+        // transactionComm.validateMovieExistence(input);
+        // transactionComm.validateProductsExistence(input);
+        /** SETTEO */
+        Transaction trx = reqMapper.TransactionRequestToTransaction(request);
+        trx.getCinema().setCinemaName(cinema.getCinemaName());
+        Transaction save = transactionRepository.save((trx));
+        TransactionResponse response = resMapper.TransactionToTransactionResponse(save);
+        return ResponseEntity.ok(response);
+
+        /*
+Invoice InvoiceRequestToInvoice = irm.InvoiceRequestToInvoice(input);
+Invoice save = invoiceRepository.save(InvoiceRequestToInvoice);
+InvoiceResponse InvoiceToInvoiceResponse = irspm.InvoiceToInvoiceResponse(save);
+        * */
+        /*
         // transactionComm.validateCustomerExistence(input);
         CinemaData cinema = transactionComm.validateCinemaExistence(input);
         // transactionComm.validateMovieExistence(input);
         // transactionComm.validateProductsExistence(input);
-        /** SETTEO */
         Transaction t = new Transaction();
         t.setCode(input.getCode());
         t.setCinema(cinema);
@@ -67,6 +89,7 @@ public class TransactionController {
         tr.setCinemaCode(t.getCinema().getCinemaCode());
         tr.setCinemaName(t.getCinema().getCinemaName());
         return ResponseEntity.ok(tr);
+        * */
     }
 
     @DeleteMapping("/{id}")
