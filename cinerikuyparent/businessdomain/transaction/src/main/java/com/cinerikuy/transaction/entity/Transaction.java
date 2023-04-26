@@ -20,5 +20,5 @@ public class Transaction {
     //private CustomerPojo customer;
     //private CinemaData cinema;
     //private MoviePojo movie;
-    //private List<ProductPojo> products;
+    //private List<ProductData> products;
 }

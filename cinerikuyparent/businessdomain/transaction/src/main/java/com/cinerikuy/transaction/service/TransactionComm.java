@@ -43,8 +43,8 @@ public class TransactionComm {
 //    // Validates products before save, products must exist in product-DB
 //    public void validateProductExistence(Transaction transaction) throws BusinessRuleException, UnknownHostException {
 //        if (transaction.getProducts() != null) {
-//            for (Iterator<ProductPojo> it = transaction.getProducts().iterator(); it.hasNext();) {
-//                ProductPojo product = it.next();
+//            for (Iterator<ProductData> it = transaction.getProducts().iterator(); it.hasNext();) {
+//                ProductData product = it.next();
 //                String productName = this.getProductName(product.getId());
 //                if (productName.trim().length() == 0) {
 //                    BusinessRuleException exception = new BusinessRuleException("1025", "Error de validación, producto no existe", HttpStatus.PRECONDITION_FAILED);

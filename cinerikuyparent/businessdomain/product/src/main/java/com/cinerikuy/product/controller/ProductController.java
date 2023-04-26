@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,11 +33,13 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> put(@PathVariable long id, @RequestBody Product input) {
-        Product exist = productRepository.findById(id).get();
-        if(exist != null){
-            exist.setCode(input.getCode());
-            exist.setName(input.getName());
-        }
+        Optional<Product> findById = productRepository.findById(id);
+        if(!findById.isPresent())
+            return ResponseEntity.notFound().build();
+        Product exist = findById.get();
+        exist.setCode(input.getCode());
+        exist.setName(input.getName());
+        exist.setPrice(input.getPrice());
         Product obj = productRepository.save(exist);
         return ResponseEntity.ok(obj);
     }
@@ -50,8 +53,9 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         Optional<Product> findById = productRepository.findById(id);
-        if(findById.get() != null)
-            productRepository.delete(findById.get());
+        if(!findById.isPresent())
+            return ResponseEntity.notFound().build();
+        productRepository.delete(findById.get());
         return ResponseEntity.ok().build();
     }
 }
