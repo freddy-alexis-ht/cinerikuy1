@@ -14,11 +14,8 @@ public class Transaction {
     private String code;
     @Embedded
     private CinemaData cinema;
-    // Cinema data
-    //private String cinemaCode;
-    //private String cinemaName;
     //private CustomerPojo customer;
-    //private CinemaData cinema;
     //private MoviePojo movie;
-    //private List<ProductData> products;
+    @ElementCollection
+    private List<ProductData> products;
 }

@@ -1,6 +1,10 @@
 package com.cinerikuy.transaction.dto;
 
+import com.cinerikuy.transaction.entity.ProductData;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class TransactionRequest {
@@ -8,5 +12,6 @@ public class TransactionRequest {
     // private String dni;
     private String cinemaCode;
     //private String movieCode;
-    //private List<String> products;
+    @JsonIgnoreProperties(value = { "productType" })
+    private List<ProductData> products;
 }

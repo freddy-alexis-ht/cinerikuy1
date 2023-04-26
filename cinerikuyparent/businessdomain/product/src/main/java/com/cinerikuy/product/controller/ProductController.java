@@ -24,7 +24,7 @@ public class ProductController {
             return ResponseEntity.noContent().build();
         return ResponseEntity.ok(list);    }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Product> get(@PathVariable long id) {
         return productRepository.findById(id)
                 .map(ResponseEntity::ok)
@@ -58,4 +58,14 @@ public class ProductController {
         productRepository.delete(findById.get());
         return ResponseEntity.ok().build();
     }
+
+    /** OTHER METHODS */
+    @GetMapping("/code/{productCode}")
+    public ResponseEntity<Product> get(@PathVariable String productCode) {
+        Optional<Product> findByCode = productRepository.findByCode(productCode);
+        if(!findByCode.isPresent())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(findByCode.get());
+    }
+
 }

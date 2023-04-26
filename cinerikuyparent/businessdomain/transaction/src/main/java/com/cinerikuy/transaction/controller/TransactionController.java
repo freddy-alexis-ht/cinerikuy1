@@ -3,6 +3,7 @@ package com.cinerikuy.transaction.controller;
 import com.cinerikuy.transaction.dto.TransactionRequest;
 import com.cinerikuy.transaction.dto.TransactionResponse;
 import com.cinerikuy.transaction.entity.CinemaData;
+import com.cinerikuy.transaction.entity.ProductData;
 import com.cinerikuy.transaction.entity.Transaction;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
 import com.cinerikuy.transaction.repository.TransactionRepository;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,12 +63,13 @@ public class TransactionController {
         /** VALIDACIONES */
         // transactionComm.validateCustomerExistence(input);
         CinemaData cinema = transactionComm.validateCinemaExistence(request);
+        List<ProductData> products = transactionComm.validateProductExistence(request);
         // transactionComm.validateMovieExistence(input);
-        // transactionComm.validateProductsExistence(input);
         /** SETTEO */
         Transaction trx = reqMapper.TransactionRequestToTransaction(request);
         trx.getCinema().setCinemaName(cinema.getCinemaName());
-        Transaction save = transactionRepository.save((trx));
+        trx.setProducts(products);
+        Transaction save = transactionRepository.save(trx);
         TransactionResponse response = resMapper.TransactionToTransactionResponse(save);
         return ResponseEntity.ok(response);
 
