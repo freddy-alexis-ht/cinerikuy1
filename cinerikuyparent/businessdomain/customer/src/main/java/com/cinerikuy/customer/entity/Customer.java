@@ -12,7 +12,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String dni;
-    private String name;
+    private String username;
+    private String firstName;
+    private String lastName;
     @Transient
     private List<?> transactions;
 }

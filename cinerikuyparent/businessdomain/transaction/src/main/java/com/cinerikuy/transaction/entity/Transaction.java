@@ -12,7 +12,8 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String code;
-    //private CustomerPojo customer;
+    @Embedded
+    private CustomerData customer;
     @Embedded
     private CinemaData cinema;
     @Embedded

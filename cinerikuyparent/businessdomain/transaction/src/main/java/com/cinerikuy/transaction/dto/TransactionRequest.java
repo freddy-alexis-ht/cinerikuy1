@@ -1,5 +1,6 @@
 package com.cinerikuy.transaction.dto;
 
+import com.cinerikuy.transaction.entity.CustomerData;
 import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -10,7 +11,7 @@ import java.util.List;
 @Data
 public class TransactionRequest {
     private String code;
-    // private String dni;
+    private CustomerData customer;
     private String cinemaCode;
     @JsonIgnoreProperties(value = { "movieName" })
     private MovieData movie;

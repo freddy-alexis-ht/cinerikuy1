@@ -1,5 +1,6 @@
 package com.cinerikuy.transaction.dto;
 
+import com.cinerikuy.transaction.entity.CustomerData;
 import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
 import lombok.Data;
@@ -10,7 +11,7 @@ import java.util.List;
 public class TransactionResponse {
     private long id;
     private String code;
-    // private String dni;
+    private CustomerData customer;
     private String cinemaCode;
     private String cinemaName;
     private MovieData movie;

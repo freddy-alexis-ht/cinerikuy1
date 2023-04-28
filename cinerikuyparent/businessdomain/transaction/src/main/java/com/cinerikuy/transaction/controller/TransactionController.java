@@ -2,10 +2,7 @@ package com.cinerikuy.transaction.controller;
 
 import com.cinerikuy.transaction.dto.TransactionRequest;
 import com.cinerikuy.transaction.dto.TransactionResponse;
-import com.cinerikuy.transaction.entity.CinemaData;
-import com.cinerikuy.transaction.entity.MovieData;
-import com.cinerikuy.transaction.entity.ProductData;
-import com.cinerikuy.transaction.entity.Transaction;
+import com.cinerikuy.transaction.entity.*;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
 import com.cinerikuy.transaction.repository.TransactionRepository;
 import com.cinerikuy.transaction.service.TransactionComm;
@@ -63,17 +60,20 @@ public class TransactionController {
     public ResponseEntity<?> post(@RequestBody TransactionRequest request) throws BusinessRuleException, UnknownHostException {
         /** VALIDACIONES */
         // transactionComm.validateCustomerExistence(input);
+        CustomerData customer = transactionComm.validateCustomerExistence(request);
         CinemaData cinema = transactionComm.validateCinemaExistence(request);
         MovieData movie = transactionComm.validateMovieExistence(request);
         List<ProductData> products = transactionComm.validateProductExistence(request);
         /** SETTEO */
         Transaction trx = reqMapper.TransactionRequestToTransaction(request);
+        trx.setCustomer(customer);
         trx.getCinema().setCinemaName(cinema.getCinemaName());
         trx.setMovie(movie);
         trx.setProducts(products);
         Transaction save = transactionRepository.save(trx);
         TransactionResponse response = resMapper.TransactionToTransactionResponse(save);
         response.setMovie(save.getMovie());
+        response.setCustomer(save.getCustomer());
         return ResponseEntity.ok(response);
 
         /*

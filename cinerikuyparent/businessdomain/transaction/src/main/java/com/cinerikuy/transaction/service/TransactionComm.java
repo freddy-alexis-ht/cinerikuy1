@@ -2,6 +2,7 @@ package com.cinerikuy.transaction.service;
 
 import com.cinerikuy.transaction.dto.TransactionRequest;
 import com.cinerikuy.transaction.entity.CinemaData;
+import com.cinerikuy.transaction.entity.CustomerData;
 import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
@@ -45,6 +46,36 @@ public class TransactionComm {
                 connection.addHandlerLast(new WriteTimeoutHandler(5000, TimeUnit.MILLISECONDS));
             });
 
+    // Validates customer before save, the customer must exist in customer-DB
+    public CustomerData validateCustomerExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
+        CustomerData customerData = this.getCustomerData(request.getCustomer());
+        if (customerData == null || customerData.getCustomerUsername().trim().length() == 0) {
+            BusinessRuleException exception = new BusinessRuleException("1026", "Error de validación, customer no existe", HttpStatus.PRECONDITION_FAILED);
+            throw exception;
+        }
+        return customerData;
+    }
+    private CustomerData getCustomerData(CustomerData customerData) throws UnknownHostException {
+        try {
+            WebClient webClient = webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
+                    .baseUrl("http://localhost:9091/customers")
+                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9091/customers"))
+                    .build();
+            JsonNode json = webClient.method(HttpMethod.GET).uri("/dni/"+customerData.getCustomerDni())
+                    .retrieve().bodyToMono(JsonNode.class).block();
+            customerData.setCustomerFirstName(json.get("firstName").asText());
+            customerData.setCustomerLastName(json.get("lastName").asText());
+        } catch (WebClientResponseException e) {
+            HttpStatus statusCode = e.getStatusCode();
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return null;
+            } else {
+                throw new UnknownHostException(e.getMessage());
+            }
+        }
+        return customerData;
+    }
 
     // Validates movie before save, the movie must exist in movie-DB
     public CinemaData validateCinemaExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
