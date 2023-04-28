@@ -3,6 +3,7 @@ package com.cinerikuy.transaction.controller;
 import com.cinerikuy.transaction.dto.TransactionRequest;
 import com.cinerikuy.transaction.dto.TransactionResponse;
 import com.cinerikuy.transaction.entity.CinemaData;
+import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
 import com.cinerikuy.transaction.entity.Transaction;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
@@ -63,14 +64,16 @@ public class TransactionController {
         /** VALIDACIONES */
         // transactionComm.validateCustomerExistence(input);
         CinemaData cinema = transactionComm.validateCinemaExistence(request);
+        MovieData movie = transactionComm.validateMovieExistence(request);
         List<ProductData> products = transactionComm.validateProductExistence(request);
-        // transactionComm.validateMovieExistence(input);
         /** SETTEO */
         Transaction trx = reqMapper.TransactionRequestToTransaction(request);
         trx.getCinema().setCinemaName(cinema.getCinemaName());
+        trx.setMovie(movie);
         trx.setProducts(products);
         Transaction save = transactionRepository.save(trx);
         TransactionResponse response = resMapper.TransactionToTransactionResponse(save);
+        response.setMovie(save.getMovie());
         return ResponseEntity.ok(response);
 
         /*

@@ -2,6 +2,7 @@ package com.cinerikuy.transaction.service;
 
 import com.cinerikuy.transaction.dto.TransactionRequest;
 import com.cinerikuy.transaction.entity.CinemaData;
+import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
 import com.cinerikuy.transaction.exception.BusinessRuleException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -45,22 +46,12 @@ public class TransactionComm {
             });
 
 
-//
-//    // Validates movie before save, the movie must exist in movie-DB
-//    public void validateMovieExistence(Transaction transaction) throws BusinessRuleException, UnknownHostException {
-//        String movieName = this.getMovieName(transaction.getMovie().getId());
-//        if (movieName.trim().length() == 0) {
-//            BusinessRuleException exception = new BusinessRuleException("1026", "Error de validación, película no existe", HttpStatus.PRECONDITION_FAILED);
-//            throw exception;
-//        }
-//    }
-
     // Validates movie before save, the movie must exist in movie-DB
     public CinemaData validateCinemaExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
-        CinemaData cinema = this.getCinema(request.getCinemaCode());
-        if (cinema.getCinemaName().trim().length() == 0)
+        CinemaData cinemaData = this.getCinema(request.getCinemaCode());
+        if (cinemaData.getCinemaName().trim().length() == 0)
             throw new BusinessRuleException("1026", "Error de validación, cine no existe", HttpStatus.PRECONDITION_FAILED);
-        return cinema;
+        return cinemaData;
     }
     private CinemaData getCinema(String cinemaCode) throws UnknownHostException {
         CinemaData cinema = new CinemaData();
@@ -84,6 +75,38 @@ public class TransactionComm {
         }
         return cinema;
     }
+
+
+    // Validates movie before save, the movie must exist in movie-DB
+    public MovieData validateMovieExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
+        MovieData movieData = this.getMovieData(request.getMovie());
+        if (movieData == null || movieData.getMovieName().trim().length() == 0) {
+            BusinessRuleException exception = new BusinessRuleException("1026", "Error de validación, película no existe", HttpStatus.PRECONDITION_FAILED);
+            throw exception;
+        }
+        return movieData;
+    }
+    private MovieData getMovieData(MovieData movieData) throws UnknownHostException {
+        try {
+            WebClient webClient = webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
+                    .baseUrl("http://localhost:9089/movies")
+                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                    .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9089/movies"))
+                    .build();
+            JsonNode json = webClient.method(HttpMethod.GET).uri("/code/"+movieData.getMovieCode())
+                    .retrieve().bodyToMono(JsonNode.class).block();
+            movieData.setMovieName(json.get("name").asText());
+        } catch (WebClientResponseException e) {
+            HttpStatus statusCode = e.getStatusCode();
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return null;
+            } else {
+                throw new UnknownHostException(e.getMessage());
+            }
+        }
+        return movieData;
+    }
+
 
     // Validates products before save, products must exist in product-DB
     public List<ProductData> validateProductExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
@@ -123,25 +146,4 @@ public class TransactionComm {
         return productData;
     }
 
-    private String getMovieName(long id) throws UnknownHostException {
-        String name = null;
-        try {
-            WebClient webClient = webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
-                    .baseUrl("http://localhost:9089/movies")
-                    .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                    .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9089/movies"))
-                    .build();
-            JsonNode json = webClient.method(HttpMethod.GET).uri("/"+id)
-                    .retrieve().bodyToMono(JsonNode.class).block();
-            name = json.get("name").asText();
-        } catch (WebClientResponseException e) {
-            HttpStatus statusCode = e.getStatusCode();
-            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
-                return "";
-            } else {
-                throw new UnknownHostException(e.getMessage());
-            }
-        }
-        return name;
-    }
 }

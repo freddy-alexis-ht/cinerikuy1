@@ -67,7 +67,7 @@ public class MovieController {
 
     /** OTHER METHODS */
 
-    @GetMapping("/code/{cinemaCode}")
+    @GetMapping("/{cinemaCode}/billboard")
     public ResponseEntity<List<Movie>> getMoviesByCinemaCode(@PathVariable String cinemaCode) {
         List<Movie> list = movieRepository.findAll()
                 .stream().filter(m -> m.getCinemaCodes().contains(cinemaCode))
@@ -75,5 +75,13 @@ public class MovieController {
         if(list == null || list.isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/code/{movieCode}")
+    public ResponseEntity<Movie> get(@PathVariable String movieCode) {
+        Optional<Movie> findByCode = movieRepository.findByCode(movieCode);
+        if(!findByCode.isPresent())
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(findByCode.get());
     }
 }

@@ -12,10 +12,11 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String code;
+    //private CustomerPojo customer;
     @Embedded
     private CinemaData cinema;
-    //private CustomerPojo customer;
-    //private MoviePojo movie;
+    @Embedded
+    private MovieData movie;
     @ElementCollection
     private List<ProductData> products;
 }

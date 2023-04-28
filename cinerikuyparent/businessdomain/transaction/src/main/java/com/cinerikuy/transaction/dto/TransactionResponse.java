@@ -1,5 +1,6 @@
 package com.cinerikuy.transaction.dto;
 
+import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
 import lombok.Data;
 
@@ -12,6 +13,6 @@ public class TransactionResponse {
     // private String dni;
     private String cinemaCode;
     private String cinemaName;
-    //private String movieCode;
+    private MovieData movie;
     private List<ProductData> products;
 }

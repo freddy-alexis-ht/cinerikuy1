@@ -41,7 +41,7 @@ public class CinemaComm {
             });
 
     /** MÉTODOS */
-
+    // Billboard
     public <T> List<T> getMovies(String cinemaCode) {
         List<T> movies = new ArrayList<>();
         try {
@@ -51,7 +51,7 @@ public class CinemaComm {
                     .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9089/movies"))
                     .build();
 
-            List<Object> t = build.method(HttpMethod.GET).uri("/code/"+cinemaCode)
+            List<Object> t = build.method(HttpMethod.GET).uri("/"+cinemaCode+"/billboard")
                     .retrieve().bodyToFlux(Object.class).collectList().block();
 
             movies = (List<T>) t;
