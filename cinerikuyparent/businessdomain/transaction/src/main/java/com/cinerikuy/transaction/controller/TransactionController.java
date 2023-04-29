@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +65,7 @@ public class TransactionController {
         List<ProductData> products = transactionComm.validateProductExistence(request);
         /** SETTEO */
         Transaction trx = reqMapper.TransactionRequestToTransaction(request);
-        trx.setStatus(StatusEnum.PENDIENTE.toString());
+        trx.setStatus(StatusEnum.PENDIENTE_DE_PAGO.toString());
         trx.setCustomer(customer);
         trx.getCinema().setCinemaName(cinema.getCinemaName());
         trx.setMovie(movie);
