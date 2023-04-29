@@ -14,6 +14,7 @@ public class Movie {
     private long id;
     private String code;
     private String name;
+    private int price;
     @Convert(converter = StringToListConverter.class)
     private List<String> cinemaCodes;
 }

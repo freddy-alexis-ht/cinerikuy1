@@ -8,5 +8,6 @@ import javax.persistence.Embeddable;
 public class MovieData {
     private String movieCode;
     private String movieName;
+    private int movieTicketPrice;
     private int movieTicketUnits;
 }

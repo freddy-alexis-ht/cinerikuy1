@@ -66,14 +66,15 @@ public class TransactionController {
         /** SETTEO */
         Transaction trx = reqMapper.TransactionRequestToTransaction(request);
         trx.setStatus(StatusEnum.PENDIENTE_DE_PAGO.toString());
-        trx.setCustomer(customer);
-        trx.getCinema().setCinemaName(cinema.getCinemaName());
-        trx.setMovie(movie);
-        trx.setProducts(products);
+        trx.setCustomerData(customer);
+        trx.setCinemaData(cinema);
+        trx.setMovieData(movie);
+        trx.setProductDataList(products);
         Transaction save = transactionRepository.save(trx);
         TransactionResponse response = resMapper.TransactionToTransactionResponse(save);
-        response.setMovie(save.getMovie());
-        response.setCustomer(save.getCustomer());
+        response.setCinemaData(save.getCinemaData());
+        response.setMovieData(save.getMovieData());
+        response.setCustomerData(save.getCustomerData());
         return ResponseEntity.ok(response);
 
         /*

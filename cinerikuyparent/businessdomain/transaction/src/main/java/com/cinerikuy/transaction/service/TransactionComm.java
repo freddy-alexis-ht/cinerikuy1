@@ -48,7 +48,7 @@ public class TransactionComm {
 
     // Validates customer before save, the customer must exist in customer-DB
     public CustomerData validateCustomerExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
-        CustomerData customerData = this.getCustomerData(request.getCustomer());
+        CustomerData customerData = this.getCustomerData(request.getCustomerData());
         if (customerData == null || customerData.getCustomerUsername().trim().length() == 0) {
             BusinessRuleException exception = new BusinessRuleException("1026", "Error de validación, customer no existe", HttpStatus.PRECONDITION_FAILED);
             throw exception;
@@ -79,23 +79,21 @@ public class TransactionComm {
 
     // Validates movie before save, the movie must exist in movie-DB
     public CinemaData validateCinemaExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
-        CinemaData cinemaData = this.getCinema(request.getCinemaCode());
-        if (cinemaData.getCinemaName().trim().length() == 0)
+        CinemaData cinemaData = this.getCinemaData(request.getCinemaData());
+        if (cinemaData == null || cinemaData.getCinemaName().trim().length() == 0)
             throw new BusinessRuleException("1026", "Error de validación, cine no existe", HttpStatus.PRECONDITION_FAILED);
         return cinemaData;
     }
-    private CinemaData getCinema(String cinemaCode) throws UnknownHostException {
-        CinemaData cinema = new CinemaData();
+    private CinemaData getCinemaData(CinemaData cinemaData) throws UnknownHostException {
         try {
             WebClient webClient = webClientBuilder.clientConnector(new ReactorClientHttpConnector(HttpClient.from(tcpClient)))
                     .baseUrl("http://localhost:9088/cinemas")
                     .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .defaultUriVariables(Collections.singletonMap("url", "http://localhost:9088/cinemas"))
                     .build();
-            JsonNode json = webClient.method(HttpMethod.GET).uri("/code/"+cinemaCode)
+            JsonNode json = webClient.method(HttpMethod.GET).uri("/code/"+cinemaData.getCinemaCode())
                     .retrieve().bodyToMono(JsonNode.class).block();
-            cinema.setCinemaCode(json.get("code").asText());
-            cinema.setCinemaName(json.get("name").asText());
+            cinemaData.setCinemaName(json.get("name").asText());
         } catch (WebClientResponseException e) {
             HttpStatus statusCode = e.getStatusCode();
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
@@ -104,13 +102,13 @@ public class TransactionComm {
                 throw new UnknownHostException(e.getMessage());
             }
         }
-        return cinema;
+        return cinemaData;
     }
 
 
     // Validates movie before save, the movie must exist in movie-DB
     public MovieData validateMovieExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
-        MovieData movieData = this.getMovieData(request.getMovie());
+        MovieData movieData = this.getMovieData(request.getMovieData());
         if (movieData == null || movieData.getMovieName().trim().length() == 0) {
             BusinessRuleException exception = new BusinessRuleException("1026", "Error de validación, película no existe", HttpStatus.PRECONDITION_FAILED);
             throw exception;
@@ -127,6 +125,7 @@ public class TransactionComm {
             JsonNode json = webClient.method(HttpMethod.GET).uri("/code/"+movieData.getMovieCode())
                     .retrieve().bodyToMono(JsonNode.class).block();
             movieData.setMovieName(json.get("name").asText());
+            movieData.setMovieTicketPrice(json.get("price").asInt());
         } catch (WebClientResponseException e) {
             HttpStatus statusCode = e.getStatusCode();
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
@@ -142,8 +141,8 @@ public class TransactionComm {
     // Validates products before save, products must exist in product-DB
     public List<ProductData> validateProductExistence(TransactionRequest request) throws BusinessRuleException, UnknownHostException {
         List<ProductData> productDataList = new ArrayList<>();
-        if (request.getProducts() != null) {
-            for (Iterator<ProductData> it = request.getProducts().iterator(); it.hasNext();) {
+        if (request.getProductDataList() != null) {
+            for (Iterator<ProductData> it = request.getProductDataList().iterator(); it.hasNext();) {
                 ProductData productData = it.next();
                 ProductData returned = this.getProductData(productData.getProductCode());
                 if (returned == null || returned.getProductType().trim().length() == 0) {
@@ -166,6 +165,7 @@ public class TransactionComm {
             JsonNode json = webClient.method(HttpMethod.GET).uri("/code/"+productCode)
                     .retrieve().bodyToMono(JsonNode.class).block();
             productData.setProductType(json.get("type").asText());
+            productData.setProductPrice(json.get("price").asInt());
         } catch (WebClientResponseException e) {
             HttpStatus statusCode = e.getStatusCode();
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {

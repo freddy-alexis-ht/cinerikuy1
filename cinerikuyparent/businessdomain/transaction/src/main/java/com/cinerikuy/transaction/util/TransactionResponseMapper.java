@@ -13,16 +13,15 @@ import java.util.List;
 public interface TransactionResponseMapper {
 
     @Mappings({
-            @Mapping(source = "cinema.cinemaCode", target = "cinemaCode"),
-            @Mapping(source = "cinema.cinemaName", target = "cinemaName")})
+            @Mapping(expression = "java(getMovieTotalPrice(source.getMovieData().getMovieTicketPrice(), " +
+                                                            "source.getMovieData().getMovieTicketUnits()))",
+                    target = "movieTotalPrice")
+    })
     TransactionResponse TransactionToTransactionResponse(Transaction source);
 
     List<TransactionResponse> TransactionListToTransactionResponseList(List<Transaction> source);
 
-    @InheritInverseConfiguration
-    Transaction TransactionResponseToTransaction(TransactionResponse srr);
-
-    @InheritInverseConfiguration
-    List<Transaction> TransactionResponseToTransactionList(List<TransactionResponse> source);
-
+    default int getMovieTotalPrice(int ticketPrice, int ticketUnits) {
+        return ticketPrice * ticketUnits;
+    }
 }

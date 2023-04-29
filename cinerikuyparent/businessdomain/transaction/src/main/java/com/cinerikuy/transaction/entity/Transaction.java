@@ -14,11 +14,11 @@ public class Transaction {
     private String code;
     private String status;
     @Embedded
-    private CustomerData customer;
+    private CustomerData customerData;
     @Embedded
-    private CinemaData cinema;
+    private CinemaData cinemaData;
     @Embedded
-    private MovieData movie;
+    private MovieData movieData;
     @ElementCollection
-    private List<ProductData> products;
+    private List<ProductData> productDataList;
 }
