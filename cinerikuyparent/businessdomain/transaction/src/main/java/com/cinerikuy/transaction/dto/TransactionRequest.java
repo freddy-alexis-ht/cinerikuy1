@@ -3,6 +3,7 @@ package com.cinerikuy.transaction.dto;
 import com.cinerikuy.transaction.entity.CustomerData;
 import com.cinerikuy.transaction.entity.MovieData;
 import com.cinerikuy.transaction.entity.ProductData;
+import com.cinerikuy.transaction.entity.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 

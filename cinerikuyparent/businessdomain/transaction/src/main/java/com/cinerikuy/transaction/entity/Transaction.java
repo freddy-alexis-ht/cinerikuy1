@@ -12,6 +12,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String code;
+    private String status;
     @Embedded
     private CustomerData customer;
     @Embedded

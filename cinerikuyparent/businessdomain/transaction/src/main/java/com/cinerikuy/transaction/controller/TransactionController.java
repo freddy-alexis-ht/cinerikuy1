@@ -66,6 +66,7 @@ public class TransactionController {
         List<ProductData> products = transactionComm.validateProductExistence(request);
         /** SETTEO */
         Transaction trx = reqMapper.TransactionRequestToTransaction(request);
+        trx.setStatus(StatusEnum.PENDIENTE.toString());
         trx.setCustomer(customer);
         trx.getCinema().setCinemaName(cinema.getCinemaName());
         trx.setMovie(movie);
