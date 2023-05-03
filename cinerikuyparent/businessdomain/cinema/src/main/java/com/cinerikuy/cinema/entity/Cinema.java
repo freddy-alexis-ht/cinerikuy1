@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -13,7 +14,11 @@ public class Cinema {
     private long id;
     private String code;
     private String name;
-    @Transient
-    private List<?> movies;
+    private String day;
+    private int price;
+    @ElementCollection
+    private Map<String, Integer> dayPrice;
+    @ElementCollection
+    private List<MovieData> movies;
 
 }

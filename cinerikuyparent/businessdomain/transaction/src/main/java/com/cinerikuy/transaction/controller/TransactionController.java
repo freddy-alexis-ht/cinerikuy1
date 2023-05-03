@@ -76,27 +76,6 @@ public class TransactionController {
         response.setMovieData(save.getMovieData());
         response.setCustomerData(save.getCustomerData());
         return ResponseEntity.ok(response);
-
-        /*
-Invoice InvoiceRequestToInvoice = irm.InvoiceRequestToInvoice(input);
-Invoice save = invoiceRepository.save(InvoiceRequestToInvoice);
-InvoiceResponse InvoiceToInvoiceResponse = irspm.InvoiceToInvoiceResponse(save);
-        * */
-        /*
-        // transactionComm.validateCustomerExistence(input);
-        CinemaData cinema = transactionComm.validateCinemaExistence(input);
-        // transactionComm.validateMovieExistence(input);
-        // transactionComm.validateProductsExistence(input);
-        Transaction t = new Transaction();
-        t.setCode(input.getCode());
-        t.setCinema(cinema);
-        Transaction save = transactionRepository.save(t);
-        TransactionResponse tr = new TransactionResponse();
-        tr.setCode(t.getCode());
-        tr.setCinemaCode(t.getCinema().getCinemaCode());
-        tr.setCinemaName(t.getCinema().getCinemaName());
-        return ResponseEntity.ok(tr);
-        * */
     }
 
     @DeleteMapping("/{id}")
